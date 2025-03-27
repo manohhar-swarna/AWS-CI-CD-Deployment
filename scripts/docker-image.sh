@@ -16,5 +16,5 @@ fi
 
 docker image prune -f
 
-docker pull 590183891223.dkr.ecr.us-east-1.amazonaws.com/application:latest
-docker run -d -p 8080:8080 590183891223.dkr.ecr.us-east-1.amazonaws.com/application:latest
+docker pull #ECR repository name
+docker run -d -p 8080:8080 #ECR repository name
