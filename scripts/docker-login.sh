@@ -1,5 +1,5 @@
 #AWS login
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 590183891223.dkr.ecr.us-east-1.amazonaws.com
+#Provide the login command to AWS ECR
 # Directory to clean
 TARGET_DIR="/var/www/html"
 TARGET_DIR_GIT="/var/www/html/.git"
