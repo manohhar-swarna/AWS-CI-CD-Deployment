@@ -1,6 +1,6 @@
-# Project Breif:
+# Project Brief:
 
-This is an end-to-end ML project, which demonstrate mainly on the life cycle of ML project and deployment with principles of CI/CD in AWS.
+**This is an end-to-end ML project, which demonstrate mainly on the life cycle of ML project and deployment with principles of CI/CD in AWS.**
 
 ## Steps to run the project using codeCommit, codeBuild, codeDeploy and codePipeline:
 
