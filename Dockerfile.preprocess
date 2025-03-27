@@ -1,0 +1,26 @@
+# Use a base image with Python installed
+FROM python:3.11-slim
+
+# Set the working directory inside the container
+WORKDIR /rice/code
+
+# Copy the src directory containing your custom packages
+COPY src /rice/code/src
+
+# Copy the requirements.txt file
+COPY requirements.txt /rice/code
+
+# Copy the setup.py file
+COPY setup.py /rice/code
+
+# Upgrade pip to the latest version
+RUN pip install --upgrade pip
+
+# Install dependencies from requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+#building the custom packages
+RUN pip install .
+
+# Set the entry point or default command for the container
+CMD ["python", "src/components/data_transform.py"]  # Adjust as per your project structure

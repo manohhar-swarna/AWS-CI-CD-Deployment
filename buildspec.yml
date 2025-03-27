@@ -1,0 +1,46 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo "Installing dependencies..."
+      - pip install --upgrade pip
+      - pip install -r requirements.txt
+      - echo "sucessfully installed the requirements.."
+
+  pre_build:
+    commands:
+      - echo "starting to build the custome packages in the current project rice."
+      - pip install .
+      - echo "Suceessfully built the custom packages"
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 590183891223.dkr.ecr.us-east-1.amazonaws.com
+      - echo "login successful.."
+      - echo "building the docker image for preprocessing job"
+      - docker build -f Dockerfile.preprocess -t rice-preprocess .
+      - echo "docker image build successfully..."
+      - docker tag rice-preprocess:latest 590183891223.dkr.ecr.us-east-1.amazonaws.com/rice-preprocess:latest
+      - echo "Docker tag assigned..."
+      - docker push 590183891223.dkr.ecr.us-east-1.amazonaws.com/rice-preprocess:latest
+      - echo "successfully pushed the preprocess docker image to ECR rice-preprocess"
+  build:
+    commands:
+      - echo "Running Data-ingestion script..."
+      - python src/components/data_ingestion.py
+      - echo "successfully completed the execution of data-ingestion script..."
+  post_build:
+    commands:
+      - echo "post build execution starts.."
+      - echo "building the docker image for application deployment"
+      - docker build -f Dockerfile.app -t application .
+      - echo "docker image build successfully..."
+      - docker tag application:latest 590183891223.dkr.ecr.us-east-1.amazonaws.com/application:latest
+      - echo "Docker tag assigned..."
+      - docker push 590183891223.dkr.ecr.us-east-1.amazonaws.com/application:latest
+      - echo "successfully pushed the application docker image to ECR rice-preprocess"
+
+artifacts:
+  files:
+    - '**/*'

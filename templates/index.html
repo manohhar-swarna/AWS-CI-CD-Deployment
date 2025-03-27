@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Prediction</title>
+</head>
+<body>
+    <h2>Rice-project Prediction</h2>
+    <form action="/predict" method="post">
+        <label for="area">Area:</label>
+        <input type="text" id="area" name="area"><br><br>
+        <label for="perimeter">Perimeter:</label>
+        <input type="text" id="perimeter" name="perimeter"><br><br>
+        <label for="major_axis_length">Major Axis Length:</label>
+        <input type="text" id="major_axis_length" name="major_axis_length"><br><br>
+        <label for="minor_axis_length">Minor Axis Length:</label>
+        <input type="text" id="minor_axis_length" name="minor_axis_length"><br><br>
+        <label for="eccentricity">Eccentricity:</label>
+        <input type="text" id="eccentricity" name="eccentricity"><br><br>
+        <label for="convex_area">Convex Area:</label>
+        <input type="text" id="convex_area" name="convex_area"><br><br>
+        <label for="extent">Extent:</label>
+        <input type="text" id="extent" name="extent"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    {% if prediction_text %}
+        <h3>{{ prediction_text }}</h3>
+    {% endif %}
+</body>
+</html>
